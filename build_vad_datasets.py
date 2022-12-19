@@ -108,7 +108,7 @@ def parse_args():
         "Give this argument to build the SNR / VAD modified dataset",
         default=None,
     )
-    parser_init.add_argument("--file_extension", type=str, default=".flac")
+    parser_init.add_argument("--file_extension", type=str, default=".wav")
 
     parser_transform = subparsers.add_parser("transform")
     update_base_parser(parser_transform)

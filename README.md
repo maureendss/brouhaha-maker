@@ -43,23 +43,28 @@ python vad_pyannote/launch_vad_pyannote.py ${DATASET_DIR}/audio_16k \
 This script takes advantage of all available GPUs. You can launch it on scrum to deal efficiently with large dataset.
 
 
-# Apply diverse transformations the dataset
+# Apply white noise augmentation to the dataset
 
 To transform your dataset, you will need to use `build_vad_datasets.py` as follow:
 
 ## Noise Augmentation
 
-You will need to audioset [AUDIOSET](https://research.google.com/audioset/dataset/index.html). To launch the noise augmentation use `build_vad_datasets.py` as follow:
 
 Set dir noise to a dataset which contains one long white noise segment. Careful, it is important that there is only one audio in the dataset, which is also longer than the longest audio.
+
+You can create this white noise using for example audacity (make sure to save it with a 16k sample rate). It should be longer than any segments in the evaluation set (eg 30s)
 Set SNR_MIN and MAX to the required value (max 30, min 1)
 In decibels (the decibel ratio difference between the 2)
+
+#For example, if you want an equally spaced range of 9 numbers between 1 and 30 you can use : 
+[ 1.   ,  4.625,  8.25 , 11.875, 15.5  , 19.125, 22.75 , 26.375, 30.   ])
+
 ```
 python build_vad_datasets.py transform $DATASET_NAME \
                              $OUTPUT_DIR_VAD_DATASET \
                              --name noise \
                              --transforms noise \
-                             --dir-noise $MUSAN_DIR \
+                             --dir-noise $DIR_NOISE \
                              --ext-noise .wav \
                              --snr-min $TARGET_SNR \
                              --snr-max $TARGET_SNR \

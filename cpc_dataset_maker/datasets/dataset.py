@@ -238,7 +238,7 @@ class Dataset:
         root: Union[Path, str],
         dataset_name: str = "base",
         sr_db: int = SR_CPC,  # sample rate of audio files
-        ext_db: str = ".flac",  # extension of audio files
+        ext_db: str = ".wav",  # extension of audio files
         path_training_set: Optional[
             Union[str, Path]
         ] = None,  # path to the training set file
@@ -274,7 +274,6 @@ class Dataset:
             self.use_snr_labels(path_snr_labels)
         if path_reverb_labels is not None:
             self.use_snr_labels(path_reverb_labels)
-
     @property
     def path_rttm(self) -> Path:
         return self.root / "rttm_files"
