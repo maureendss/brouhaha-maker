@@ -179,7 +179,10 @@ class AddNoise(Transform):
 
         # if noise sequences are shorter than the audio file, add different
         # noise sequences one after the other
-        noise = self.load_noise_on_the_fly(audio_nb_frames, sr)
+        #noise = self.load_noise_on_the_fly(audio_nb_frames, sr)
+        noise = self.simple_load(random.choice(self.noise_files), sr)
+        # Here compute audio. Because only one in each dir, is ok.
+
         frame_start = random.randint(0, noise.size(0) - audio_nb_frames)
         noise_seq_torch = noise[frame_start : frame_start + audio_nb_frames]
 

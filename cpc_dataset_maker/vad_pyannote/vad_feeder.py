@@ -43,8 +43,12 @@ class VADFeeder:
         self._vad_vector = torch.zeros(n_chunks, self._size_vad_chunk, 2)
 
     def get_n_chunks_sequence(self, seq_index: int):
-        info = torchaudio.info(str(self._path_db / self._seq_names[seq_index]))[0]
-        n_frames = info.length
+        try:
+            info = torchaudio.info(str(self._path_db / self._seq_names[seq_index]))[0]
+            n_frames = info.length
+        except: # handling of more recent torchaudio versions.
+            info = torchaudio.info(str(self._path_db / self._seq_names[seq_index]))
+            n_frames = info.num_frames
         return n_frames // self._size_frame
 
     def feed_seq_data(self, seq_index: int, chunk_index: int, vad_data: torch.Tensor):

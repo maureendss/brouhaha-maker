@@ -4,6 +4,7 @@ import torch
 import json
 import sys
 
+
 # from pyannote.audio.utils.signal import Binarize
 # from pyannote.audio.features import Pretrained
 
@@ -173,8 +174,9 @@ def main(args):
 
     # The model
     print("Loading the model")
-    base_model = torch.hub.load("pyannote/pyannote-audio", "sad_ami", force_reload=False)
-    # base_model = torch.hub.load("/linkhome/rech/genini01/uzm31mf/.cache/torch/hub/pyannote_pyannote-audio_master", "sad_ami", source="local")
+    #base_model = torch.hub.load("pyannote/pyannote-audio", "sad_ami", force_reload=False)
+    #need internet access for the above sequence. Use below if you have already downloaded the model
+    base_model = torch.hub.load("/linkhome/rech/genini01/ucv88ce/.cache/torch/hub/pyannote_pyannote-audio_master", "sad_ami", source="local")
 
 
     sad_model = base_model.model_

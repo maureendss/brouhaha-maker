@@ -53,8 +53,13 @@ class SeqNameDataset:
         )
 
     def extract_length(self, seq_index: int) -> int:
-        info = torchaudio.info(str(self._path_db / self._seq_names[seq_index]))[0]
-        return info.length - (info.length % self._size_frame)
+        try:
+            info = torchaudio.info(str(self._path_db / self._seq_names[seq_index]))[0]
+            dur = info.length - (info.length % self._size_frame)
+        except: # handling of more recent torchaudio versions.
+            info = torchaudio.info(str(self._path_db / self._seq_names[seq_index]))
+            dur = info.num_frames - (info.num_frames % self._size_frame)
+        return dur
 
     def prepare(self) -> None:
 
