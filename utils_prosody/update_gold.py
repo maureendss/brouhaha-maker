@@ -11,7 +11,7 @@ def create_df(gold, snr_list):
     wn_dfs=[df]
     for s in snr_list:
         df_tmp = df.copy(deep=True)
-        df_tmp["id"] = df_tmp["id"].apply(lambda x: "".join([s,str(x)]))
+        df_tmp["id"] = df_tmp["id"].apply(lambda x: "".join([s.replace('-', ''),str(x)]))
         df_tmp["filename"] = df_tmp["filename"].apply(lambda x: "_".join([str(x),"wn"+s]))
         df_tmp["subtype"] = df_tmp["subtype"].apply(lambda x : "wn"+s)
         
@@ -31,7 +31,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("output_dir", help="path to the directory")
     parser.add_argument("og_gold", type=str, help="gold_csv")    
-    parser.add_argument("--snr_name_list", type=str, default="10 13 15 18 20 23 25 28 30", help="List (space separated) of the (rounded) snr that will be used to update the gold")
+    parser.add_argument("--snr_name_list", type=str, default="25 25-625 26-25 26-875 27-5 28-125 28-75 29-375 30", help="List (space separated) of the (rounded) snr that will be used to update the gold")
  
     parser.parse_args()
     args, leftovers = parser.parse_known_args()
